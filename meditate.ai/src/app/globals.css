@@ -3,19 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --fawn-default: #fcc383;
+    --fawn-100: #4b2902;
+    --fawn-200: #955104;
+    --fawn-300: #e07a06;
+    --fawn-400: #fa9f38;
+    --fawn-500: #fcc383;
+    --fawn-600: #fccf9c;
+    --fawn-700: #fddbb4;
+    --fawn-800: #fee7cd;
+    --fawn-900: #fef3e6;
 }
