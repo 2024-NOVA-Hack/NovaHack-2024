@@ -3,34 +3,81 @@
 @tailwind utilities;
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
-    color: var(--foreground);
-    background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.transition-opacity {
+  transition: opacity 0.5s ease-in-out;
 }
 
 :root {
-    --background: #ffffff;
-    --foreground: #171717;
-    --fawn-default: #fcc383;
-    --fawn-100: #4b2902;
-    --fawn-200: #955104;
-    --fawn-300: #e07a06;
-    --fawn-400: #fa9f38;
-    --fawn-500: #fcc383;
-    --fawn-600: #fccf9c;
-    --fawn-700: #fddbb4;
-    --fawn-800: #fee7cd;
-    --fawn-900: #fef3e6;
+  --background: #ffffff;
+  --foreground: #171717;
+  --fawn-default: #fcc383;
+  --fawn-100: #4b2902;
+  --fawn-200: #955104;
+  --fawn-300: #e07a06;
+  --fawn-400: #fa9f38;
+  --fawn-500: #fcc383;
+  --fawn-600: #fccf9c;
+  --fawn-700: #fddbb4;
+  --fawn-800: #fee7cd;
+  --fawn-900: #fef3e6;
+
+  --thulian_pink-DEFAULT: #c76b98;
+  --thulian_pink-100: #2c111e;
+  --thulian_pink-200: #59223c;
+  --thulian_pink-300: #85325a;
+  --thulian_pink-400: #b14379;
+  --thulian_pink-500: #c76b98;
+  --thulian_pink-600: #d289ac;
+  --thulian_pink-700: #dda6c1;
+  --thulian_pink-800: #e9c4d6;
+  --thulian_pink-900: #f4e1ea;
+
+  --finn-DEFAULT: #632b6c;
+  --finn-100: #140916;
+  --finn-200: #28112c;
+  --finn-300: #3c1a42;
+  --finn-400: #502358;
+  --finn-500: #632b6c;
+  --finn-600: #9440a0;
+  --finn-700: #b666c2;
+  --finn-800: #ce99d6;
+  --finn-900: #e7cceb;
+
+  --melon-DEFAULT: #f09f9c;
+  --melon-100: #450c0a;
+  --melon-200: #8a1915;
+  --melon-300: #d0251f;
+  --melon-400: #e65d58;
+  --melon-500: #f09f9c;
+  --melon-600: #f3b3b1;
+  --melon-700: #f6c6c4;
+  --melon-800: #f9d9d8;
+  --melon-900: #fceceb;
+
+  --text-box-bg: #eae5eb;
 }
