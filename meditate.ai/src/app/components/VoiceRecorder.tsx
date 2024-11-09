@@ -30,24 +30,25 @@ const VoiceRecorder = () => {
 
     console.log('Recorded data: ', recordedData);
 
-    // Send the recording to the backend
+    // Send the recording to the Flask backend
     const formData = new FormData();
     formData.append('audio', recordedData.blob, 'recording.wav');
 
     try {
-      const response = await fetch('/api/upload-audio', {
+      const response = await fetch('http://localhost:5000/transcribe', {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
-        console.log('Audio file uploaded successfully.');
+        const result = await response.json();
+        console.log('Transcription result:', result);
       } else {
         const errorText = await response.text();
-        console.error('Failed to upload audio file: ', response.status, errorText);
+        console.error('Failed to transcribe audio file:', response.status, errorText);
       }
     } catch (error) {
-      console.error('An error occurred while uploading the audio file:', error);
+      console.error('An error occurred while transcribing the audio file:', error);
     }
   };
 

@@ -24,13 +24,12 @@ export async function POST(req: Request) {
     const filepath = path.join(uploadDir, filename);
 
     // Convert File to Buffer and save
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const buffer = Buffer.from(await file.arrayBuffer());
     await writeFile(filepath, buffer);
 
     return NextResponse.json({
       message: 'File uploaded successfully',
-      filename
+      filename,
     });
 
   } catch (error) {
@@ -41,9 +40,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};

@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from openai import OpenAI
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 
 @app.route("/transcribe", methods=["POST"])
@@ -12,7 +14,7 @@ def transcribe_audio():
     )
 
     # Get the audio file from the request
-    audio_file = request.files["file"]
+    audio_file = request.files["audio"]
 
     # Perform transcription
     transcription = client.audio.transcriptions.create(
@@ -24,7 +26,12 @@ def transcribe_audio():
     with open("transcription_output.txt", "w") as f:
         f.write(transcription.text)
 
-    return jsonify({"message": "Transcription saved to 'transcription_output.txt'"})
+    return jsonify(
+        {
+            "message": "Transcription saved to 'transcription_output.txt'",
+            "transcription": transcription.text,
+        }
+    )
 
 
 if __name__ == "__main__":
