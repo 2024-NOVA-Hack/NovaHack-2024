@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import VoiceRecorder from "./components/VoiceRecorder";
-import AudioTest from "audio_play.tsx";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const messages = [
@@ -14,7 +12,7 @@ export default function Home() {
 
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState("animate-fade-in-down");
-  const audioRef = useRef(null); // Ref for controlling audio
+  const [reflection, setReflection] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,24 +25,32 @@ export default function Home() {
       }, 500); // Duration of the fade-out animation
     }, 3000); // Time between messages
 
-    // Auto-play music on page load
-    // if (audioRef.current) {
-    //   audioRef.current.play().catch((error) => {
-    //     console.log("Auto-play failed:", error);
-    //   });
-    // }
-
     return () => clearInterval(interval);
   }, [messages.length]);
 
-  // // Toggle play/pause for music
-  // const toggleMusic = () => {
-  //   if (audioRef.current.paused) {
-  //     audioRef.current.play();
-  //   } else {
-  //     audioRef.current.pause();
-  //   }
-  // };
+  const handleSubmit = async () => {
+    // try {
+    console.log("Sending the shit");
+    const response = await fetch("http://127.0.0.1:5000/generate_meditation", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "reflection": reflection.toString() }),
+    });
+    console.log("It sent");
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Meditation generated:", result);
+    } else {
+      const errorText = await response.text();
+      console.error("Failed to generate meditation:", response.status, errorText);
+    }
+    // } catch (error) {
+    //   console.error("An error occurred while generating meditation:", error);
+    // }
+  };
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-[#632b6c] to-[#c76b98]">
@@ -58,14 +64,36 @@ export default function Home() {
         {messages[currentMessageIndex]}
       </span>
 
-      {/* Meditation Start and Stop buttons */}
-      <VoiceRecorder />
-
-      {/* Hidden audio player
-      <audio ref={audioRef} loop>
-        <source src="/music.m4a" type="audio/m4a" />
-        Your browser does not support the audio element.
-      </audio> */}
+      <div className="w-3/4 mt-10">
+        <textarea
+          className="w-full h-64 p-4 text-xl text-[#3c1a42] rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-[#eae5eb]"
+          placeholder="Enter your thoughts here..."
+          value={reflection}
+          onChange={(e) => setReflection(e.target.value)}
+        ></textarea>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={handleSubmit}
+            className="flex items-center justify-center w-50 p-4 text-2xl font-bold text-white bg-[#632b6c] rounded-lg shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          >
+            Begin
+            <svg
+              className="w-6 h-6 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10.5 3.5L3 21l7.5-4.5L18 21l-7.5-17.5z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   );
-};
+}

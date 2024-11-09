@@ -12,25 +12,26 @@ app.config["CARTESIA_API_KEY"] = "5309cc41-17f5-45fa-ab8c-fe5f2cd3b3df"
 app.config["CARTESIA_API_URL"] = "https://api.cartesia.ai/v1/convert_to_audio"
 
 
-@app.route("/generate_audio", methods=["GET"])
+@app.route("/generate_audio", methods=["POST"])
 def generate_audio():
     # Define the file path for 'meditation_script.txt' in the current folder
-    input_file_path = os.path.join(app.config["UPLOAD_FOLDER"], "meditation_script.txt")
+    # input_file_path = os.path.join(app.config["UPLOAD_FOLDER"], "meditation_script.txt")
 
     # Check if the file exists
-    if not os.path.exists(input_file_path):
-        return (
-            jsonify(
-                {
-                    "error": f"File 'meditation_script.txt' not found in {app.config['UPLOAD_FOLDER']}"
-                }
-            ),
-            404,
-        )
+    # print("BEEBOP")
+    # if not os.path.exists(input_file_path):
+    #     return (
+    #         jsonify(
+    #             {
+    #                 "error": f"File 'meditation_script.txt' not found in {app.config['UPLOAD_FOLDER']}"
+    #             }
+    #         ),
+    #         404,
+    #     )
 
-    # Read the text from the file
-    with open(input_file_path, "r") as f:
-        text = f.read()
+    # # Read the text from the file
+    # with open(input_file_path, "r") as f:
+    #     text = f.read()
 
     # Call Cartesia API
     response = requests.post(
