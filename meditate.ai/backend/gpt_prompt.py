@@ -51,8 +51,9 @@ def generate_meditation_script():
     if not user_reflection:
         return jsonify({"error": "No reflection text provided"}), 400
 
-    # Step 2: Call the OpenAI API to generate a personalized meditation script based on the user's reflection
+        # Step 2: Call the OpenAI API to generate a personalized meditation script based on the user's reflection
     try:
+        print(user_reflection)
         response = client.chat.completions.create(
             model="gpt-4o",  # Adjust model as needed
             messages=[
@@ -91,14 +92,14 @@ def generate_meditation_script():
             "?", "??"
         )  # Ensure questions have double question marks for emphasis
 
-        med_json = jsonify({"meditation_script": meditation_script})
+        # med_json = jsonify({"meditation_script": meditation_script})
 
         # Return the generated meditation script as a response]
-        print(med_json["meditation_script"])
+        print(meditation_script)
 
         # path: str = generate_audio(med_json["meditation_script"])
 
-        return med_json
+        return jsonify({"meditation_script": meditation_script})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Cartesia from "@cartesia/cartesia-js";
+import { WebPlayer } from "@cartesia/cartesia-js";
 
 export default function Home() {
   const messages = [
@@ -24,6 +25,8 @@ export default function Home() {
     encoding: "pcm_f32le",
     sampleRate: 44100
   });
+
+  const player = new WebPlayer({ 'bufferDuration': 0.1 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,6 +82,8 @@ export default function Home() {
           // Raw message.
           console.log("Received message:", message);
         });
+
+        await player.play(c_response.source);
 
         console.log("Sent the shit again.");
 
