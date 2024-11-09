@@ -9,15 +9,19 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "next": "15.0.3",
-        "react": "19.0.0-rc-66855b96-20241106",
+        "multer": "^1.4.5-lts.1",
+        "next": "^15.0.3",
+        "next-connect": "^1.0.0",
+        "react": "^19.0.0-rc-66855b96-20241106",
         "react-dom": "19.0.0-rc-66855b96-20241106",
         "react-mic": "^12.4.6"
     },
     "devDependencies": {
+        "@types/multer": "^1.4.12",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
+        "@types/react-mic": "^12.4.6",
         "eslint": "^8",
         "eslint-config-next": "15.0.3",
         "postcss": "^8",

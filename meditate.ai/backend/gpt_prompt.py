@@ -37,8 +37,10 @@ def generate_meditation_script():
                 "role": "system",
                 "content": (
                     "You are a calming meditation guide. Use the reference text as a tone and structure guide, "
-                    "but focus on incorporating specific details from the user's reflections about their day into the meditation. "
-                    "Guide the user to find peace, relaxation, and gratitude as they reflect on the day and prepare to rest."
+                    "but your output should be original and it should incorporate specific details from the user's reflections about their day into the meditation. "
+                    "Guide the user to find peace, relaxation, and gratitude as they reflect on the day and prepare to rest. "
+                    "Ensure that the script is well-punctuated with natural pauses (insert '-' or '...' where needed), and use a soothing, gentle tone. "
+                    "Avoid quotation marks unless referring to a quote. "
                 ),
             },
             {
@@ -55,7 +57,17 @@ def generate_meditation_script():
 
     meditation_script = response.choices[0].message["content"]
 
-    # Step 4: Write the generated meditation script to meditation_script.txt
+    # Step 4: Post-process the meditation script to insert pauses, punctuation, and correct formatting
+    # Add pauses (represented by "-") for natural breaks in speech
+    meditation_script = meditation_script.replace(
+        "\n", " -\n"
+    )  # Insert pauses after every line break
+    meditation_script = meditation_script.replace("..", " -")  # Add pauses for ellipses
+    meditation_script = meditation_script.replace(
+        "?", "??"
+    )  # Ensure questions have double question marks for emphasis
+
+    # Step 5: Write the generated meditation script to meditation_script.txt
     with open("meditation_script.txt", "w") as file:
         file.write(meditation_script)
 
