@@ -152,9 +152,9 @@ const Home = () => {
           </div>
         )}
         {showNewField && (
-          <div className="transition-opacity duration-500 opacity-0 animate-fade-in">
+          <div className="flex items-center transition-opacity duration-500 opacity-100 animate-fade-in">
             <span
-              className="w-full p-4 text-xl text-[#3c1a42] rounded-lg shadow-lg"
+              className="flex items-center justify-center w-full p-4 text-2xl text-[#e7cceb] text-2xl font-bold"
             >
               Your meditation is ready. Relax and close your eyes.
             </span>
