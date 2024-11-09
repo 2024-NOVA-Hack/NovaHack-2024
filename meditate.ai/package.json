@@ -17,6 +17,7 @@
         "react-mic": "^12.4.6"
     },
     "devDependencies": {
+        "@cartesia/cartesia-js": "^1.2.2-alpha.0",
         "@types/multer": "^1.4.12",
         "@types/node": "^20",
         "@types/react": "^18",

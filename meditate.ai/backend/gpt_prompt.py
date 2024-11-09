@@ -2,7 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 import requests
+import os
 
+app = Flask(__name__)
 # Fetch API key and Proxy endpoint from environment variables
 TEAM_API_KEY = "sk-spzttNpsIn5Jfib0Is8N2A"
 PROXY_ENDPOINT = "https://nova-litellm-proxy.onrender.com"
@@ -16,7 +18,6 @@ app.config["CARTESIA_API_URL"] = "https://api.cartesia.ai/v1/convert_to_audio"
 # Initialize OpenAI client
 client = OpenAI(api_key=TEAM_API_KEY, base_url=PROXY_ENDPOINT)
 
-app = Flask(__name__)
 CORS(
     app,
     resources={r"/*": {"origins": ["http://localhost:3000", "https://localhost:3000"]}},
@@ -92,42 +93,41 @@ def generate_meditation_script():
 
         med_json = jsonify({"meditation_script": meditation_script})
 
-        # Return the generated meditation script as a response
+        # Return the generated meditation script as a response]
+        print(med_json["meditation_script"])
+
+        # path: str = generate_audio(med_json["meditation_script"])
+
         return med_json
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
-def generate_audio(text: str):
-    response = requests.post(
-        app.config["CARTESIA_API_URL"],
-        headers={"Authorization": f'Bearer {app.config["CARTESIA_API_KEY"]}'},
-        json={"model": "sonic", "text": text},
-    )
+# def generate_audio(text: str):
+#     response = requests.post(
+#         app.config["CARTESIA_API_URL"],
+#         headers={"Authorization": f'Bearer {app.config["CARTESIA_API_KEY"]}'},
+#         json={"model": "sonic", "text": text},
+#     )
 
-    if response.status_code != 200:
-        return (
-            jsonify({"error": "Failed to connect to Cartesia API"}),
-            response.status_code,
-        )
+#     if response.status_code != 200:
+#         return (
+#             jsonify({"error": "Failed to connect to Cartesia API"}),
+#             response.status_code,
+#         )
 
-    # Write audio content to a file
-    audio_data = response.content
-    audio_filename = "meditation_script.mp3"
-    audio_path = os.path.join(app.config["OUTPUT_FOLDER"], audio_filename)
+#     # Write audio content to a file
+#     audio_data = response.content
+#     audio_filename = "meditation_script.mp3"
+#     audio_path = os.path.join(app.config["OUTPUT_FOLDER"], audio_filename)
 
-    # Write the binary audio content to the file
-    with open(audio_path, "wb") as audio_file:
-        audio_file.write(audio_data)
+#     # Write the binary audio content to the file
+#     with open(audio_path, "wb") as audio_file:
+#         audio_file.write(audio_data)
 
-    # Send the file back to the user
-    return send_file(
-        audio_path,
-        as_attachment=True,
-        mimetype="audio/mpeg",
-        download_name=audio_filename,
-    )
+#     # Send the file back to the user
+#     return audio_path
 
 
 # Run the Flask app
